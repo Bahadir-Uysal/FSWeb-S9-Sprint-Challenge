@@ -27,21 +27,42 @@ export default function AppFunctional(props) {
     // Kullanıcı için "Koordinatlar (2, 2)" mesajını izlemek için bir state'in olması gerekli değildir.
     // Koordinatları almak için yukarıdaki "getXY" helperını ve ardından "getXYMesaj"ı kullanabilirsiniz.
     // tamamen oluşturulmuş stringi döndürür.
+    const koordinatlar = getXY()
+    return `Koordinatlar (${koordinatlar.x}, ${koordinatlar.y})`
   }
 
   function reset() {
     // Tüm stateleri başlangıç ​​değerlerine sıfırlamak için bu helperı kullanın.
+    setMessage(initialMessage)
+    setEmail(initialEmail)
+    setSteps(initialSteps)
+    setIndex(initialIndex)
   }
 
   function sonrakiIndex(yon) {
     // Bu helper bir yön ("sol", "yukarı", vb.) alır ve "B" nin bir sonraki indeksinin ne olduğunu hesaplar.
     // Gridin kenarına ulaşıldığında başka gidecek yer olmadığı için,
     // şu anki indeksi değiştirmemeli.
+    if(yon === "sol") {
+      if(index % 3 !== 0) return index -1
+    }
+    if(yon === "sağ") {
+      if(index % 3 !== 2) return index +1
+    }
+    if(yon === "yukarı") {
+      if(index > 2) return index -3
+    }
+    if(yon === "aşağı") {
+      if(index < 6) return index +3
+    }
+    return index
   }
 
   function ilerle(evt) {
     // Bu event handler, "B" için yeni bir dizin elde etmek üzere yukarıdaki yardımcıyı kullanabilir,
     // ve buna göre state i değiştirir.
+    const yon = evt.target.id
+    const yeniIndex = sonrakiIndex(yon)
   }
 
   function onChange(evt) {
